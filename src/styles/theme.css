@@ -124,7 +124,8 @@ footer.site .wrap { padding-top: 18px; padding-bottom: 28px; }
 html.shot-mode header.site,
 html.shot-mode footer.site,
 html.shot-mode .skip-link,
-html.shot-mode .faq { display: none !important; }
+html.shot-mode .faq,
+html.shot-mode .embed-block { display: none !important; }
 html.shot-mode body { background: #fff; }
 html.shot-mode main { padding: 24px 0 8px; }
 
