@@ -1,0 +1,20 @@
+---
+const { lang = 'en', tool } = Astro.props;
+const t = tool[lang] ?? tool.en;
+---
+<h1>{t.h1}</h1>
+<p class="lede">{t.lede}</p>
+
+<slot />
+
+<slot name="notes" />
+
+<div class="embed-block">
+  <h2>{lang === 'zh' ? '把这个工具嵌到你的页面' : 'Embed this tool'}</h2>
+  <p>
+    {lang === 'zh'
+      ? '一行 iframe，放到教程或文档里都行，不需要申请。'
+      : 'One iframe. Put it in a tutorial or a doc page; no signup.'}
+  </p>
+  <pre><code>{`<iframe src="${Astro.url.origin}${lang === 'zh' ? '/zh' : ''}/tools/${tool.slug}/?embed=1" width="100%" height="560" loading="lazy" style="border:0" title="${t.h1}"></iframe>`}</code></pre>
+</div>

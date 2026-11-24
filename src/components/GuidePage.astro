@@ -1,0 +1,14 @@
+---
+const { lang = 'en', guide } = Astro.props;
+const g = guide[lang] ?? guide.en;
+---
+<h1>{g.h1}</h1>
+<p class="lede">{g.desc}</p>
+
+{g.sections.map((section) => (
+  <section>
+    <h2>{section.h}</h2>
+    {section.p.map((paragraph) => <p>{paragraph}</p>)}
+    {section.code && <pre><code>{section.code}</code></pre>}
+  </section>
+))}

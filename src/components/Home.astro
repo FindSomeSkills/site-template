@@ -1,0 +1,36 @@
+---
+import { SITE } from '../lib/site.mjs';
+
+const { lang = 'en' } = Astro.props;
+const home = SITE.home[lang] ?? SITE.home.en;
+const prefix = lang === 'zh' ? '/zh' : '';
+---
+<h1>{home.h1}</h1>
+<p class="lede">{home.lede}</p>
+
+<h2 id="tools">{lang === 'zh' ? '工具' : 'Tools'}</h2>
+<div class="grid">
+  {SITE.tools.map((tool) => {
+    const t = tool[lang] ?? tool.en;
+    return (
+      <a class="card" href={`${prefix}/tools/${tool.slug}/`}>
+        <h3>{t.h1}</h3>
+        <p>{t.desc}</p>
+      </a>
+    );
+  })}
+</div>
+<p>{home.note}</p>
+
+<h2 id="guides">{lang === 'zh' ? '指南' : 'Guides'}</h2>
+<div class="grid">
+  {SITE.guides.map((guide) => {
+    const t = guide[lang] ?? guide.en;
+    return (
+      <a class="card" href={`${prefix}/guides/${guide.slug}/`}>
+        <h3>{t.h1}</h3>
+        <p>{t.desc}</p>
+      </a>
+    );
+  })}
+</div>

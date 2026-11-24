@@ -1,0 +1,13 @@
+---
+import Base from '../../../layouts/Base.astro';
+import GuidePage from '../../../components/GuidePage.astro';
+import { SITE } from '../../../lib/site.mjs';
+
+export function getStaticPaths() {
+  return SITE.guides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+const { guide } = Astro.props;
+---
+<Base lang="zh" title={guide.zh.title} desc={guide.zh.desc} slug={`zh/guides/${guide.slug}/`}>
+  <GuidePage lang="zh" guide={guide} />
+</Base>

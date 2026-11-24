@@ -1,0 +1,64 @@
+---
+import { SITE } from '../lib/site.mjs';
+import '../styles/theme.css';
+
+const { lang = 'en', title, desc, slug = '' } = Astro.props;
+const canonical = SITE.url + '/' + (lang === 'zh' ? 'zh/' : '') + slug;
+const nav = SITE.nav[lang] ?? SITE.nav.en;
+const alt = lang === 'zh' ? SITE.url + '/' : SITE.url + '/zh/';
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang === 'zh' ? 'en' : 'zh'} href={alt} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <script is:inline>
+      // 主题：默认浅色，URL 参数优先，其次 localStorage
+      (() => {
+        try {
+          const param = new URLSearchParams(location.search).get('theme');
+          const saved = localStorage.getItem('theme');
+          const theme = param === 'dark' || param === 'light' ? param : saved === 'dark' ? 'dark' : saved === 'system'
+            ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : 'light';
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+      // 截图模式与嵌入模式
+      (() => {
+        const q = new URLSearchParams(location.search);
+        if (q.has('shot')) document.documentElement.classList.add('shot-mode');
+        if (q.has('embed')) document.documentElement.classList.add('embed-mode');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip</a>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href={lang === 'zh' ? '/zh/' : '/'}>{SITE.name}</a>
+        <nav>
+          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <p>{lang === 'zh' ? '静态站，工具在浏览器里跑，不上传数据。' : 'Static pages. The tools run in the browser; nothing is uploaded.'}</p>
+      </div>
+    </footer>
+  </body>
+</html>

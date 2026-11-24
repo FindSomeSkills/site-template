@@ -1,0 +1,15 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { SITE } from '../../../lib/site.mjs';
+---
+<Base lang="zh" title="指南" desc="本站自己写的指南。" slug="zh/guides/">
+  <h1>指南</h1>
+  <div class="grid">
+    {SITE.guides.map((guide) => (
+      <a class="card" href={`/zh/guides/${guide.slug}/`}>
+        <h3>{guide.zh.h1}</h3>
+        <p>{guide.zh.desc}</p>
+      </a>
+    ))}
+  </div>
+</Base>

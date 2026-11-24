@@ -1,0 +1,31 @@
+<div class="field">
+  <label for="title">Title</label>
+  <input id="title" type="text" value="How to name things" />
+</div>
+<div class="field">
+  <label for="slug">Slug</label>
+  <input id="slug" type="text" value="" />
+</div>
+<div class="out" id="out">—</div>
+
+<script is:inline>
+  (() => {
+    const title = document.getElementById('title');
+    const slug = document.getElementById('slug');
+    const out = document.getElementById('out');
+    const toSlug = (s) =>
+      s
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    const render = () => {
+      const value = toSlug(title.value);
+      slug.value = value;
+      out.textContent = value || '(empty)';
+    };
+    title.addEventListener('input', render);
+    render();
+  })();
+</script>

@@ -1,0 +1,39 @@
+{
+  "name": "site-template",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A small tool-site scaffold: tool pages, error guides, embed mode, theme tri-state, visual acceptance.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --port 4321",
+    "verify": "node scripts/verify.mjs",
+    "visual": "node scripts/visual-check.mjs",
+    "shoot": "node scripts/shoot.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "sync": "node scripts/sync-template.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.6.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.52.0"
+  },
+  "siteTemplate": {
+    "shared": [
+      "src/layouts",
+      "src/styles",
+      "src/components",
+      "scripts",
+      "public/_headers",
+      "public/robots.txt"
+    ],
+    "owned": [
+      "src/lib/site.mjs",
+      "src/pages",
+      "public/_redirects",
+      "src/content"
+    ]
+  }
+}

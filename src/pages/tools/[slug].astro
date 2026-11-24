@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import ToolPage from '../../components/ToolPage.astro';
+import Timestamp from '../../components/tools/Timestamp.astro';
+import Slugify from '../../components/tools/Slugify.astro';
+import { SITE } from '../../lib/site.mjs';
+
+export function getStaticPaths() {
+  return SITE.tools.map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
+}
+const { tool } = Astro.props;
+const t = tool.en;
+---
+<Base lang="en" title={t.title} desc={t.desc} slug={`tools/${tool.slug}/`}>
+  <ToolPage lang="en" tool={tool}>
+    {tool.slug === 'timestamp' && <Timestamp />}
+    {tool.slug === 'slugify' && <Slugify />}
+  </ToolPage>
+</Base>

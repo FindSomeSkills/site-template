@@ -1,0 +1,45 @@
+<div class="field">
+  <label for="ts">Unix timestamp</label>
+  <input id="ts" type="number" inputmode="numeric" value="1764000000" />
+</div>
+<div class="field">
+  <label for="local">Local date</label>
+  <input id="local" type="text" value="" />
+</div>
+<div class="out" id="out">—</div>
+
+<script is:inline>
+  (() => {
+    const ts = document.getElementById('ts');
+    const local = document.getElementById('local');
+    const out = document.getElementById('out');
+    const pad = (n) => String(n).padStart(2, '0');
+    const render = () => {
+      const secs = Number(ts.value);
+      if (!Number.isFinite(secs)) {
+        out.textContent = 'not a number';
+        return;
+      }
+      const d = new Date(secs * 1000);
+      if (Number.isNaN(d.getTime())) {
+        out.textContent = 'out of range';
+        return;
+      }
+      const off = -d.getTimezoneOffset();
+      const sign = off >= 0 ? '+' : '-';
+      const abs = Math.abs(off);
+      const iso = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}${sign}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
+      local.value = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      out.textContent = iso;
+    };
+    ts.addEventListener('input', render);
+    local.addEventListener('change', () => {
+      const parsed = new Date(local.value.replace(' ', 'T'));
+      if (!Number.isNaN(parsed.getTime())) {
+        ts.value = String(Math.floor(parsed.getTime() / 1000));
+        render();
+      }
+    });
+    render();
+  })();
+</script>

@@ -1,0 +1,2 @@
+# 合并页面时在这里写 301，旧地址永远不要留在 sitemap 里
+# /old-tool/  /tools/new-tool/  301
