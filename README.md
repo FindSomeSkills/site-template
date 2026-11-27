@@ -49,4 +49,4 @@ npm run sync       # 预览模板更新；加 --apply 接受共享部分
 
 ## 为什么长这样
 
-见 `docs/PLAYBOOK.md`（同一份内容已登记为 DSH 技能 `tool-site-build`，建站时会被自动加载）。外链计划见 `docs/BACKLINK-PLAN.md`。那是从一个真站上归纳出来的：哪些做法有用、哪些是噪声、哪些是坑。
+见 `docs/PLAYBOOK.md`（同一份内容已登记为 DSH 技能 `tool-site-build`，建站时会被自动加载）。那是从一个真站上归纳出来的：哪些做法有用、哪些是噪声、哪些是坑。
